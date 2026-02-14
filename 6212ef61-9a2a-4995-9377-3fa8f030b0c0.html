@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألعاب خفيفة للكمبيوتر الضعيف</title>
+    <meta name="description" content="موقع متخصص في عرض ألعاب خفيفة للكمبيوتر الضعيف مع تصنيف حسب RAM والمعالج">
+    <meta name="keywords" content="ألعاب خفيفة, كمبيوتر ضعيف, ألعاب RAM منخفض, ألعاب معالج ضعيف">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0ea5e9",
+                        secondary: "#8b5cf6",
+                        dark: "#0f172a",
+                        "dark-light": "#1e293b",
+                        accent: "#f59e0b"
+                    },
+                    fontFamily: {
+                        'cairo': ['Cairo', 'sans-serif']
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .game-card {
+            transition: all 0.3s ease;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3);
+        }
+        .category-chip {
+            transition: all 0.2s ease;
+        }
+        .category-chip:hover {
+            transform: scale(1.05);
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-dark text-gray-200 font-cairo">
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-dark-light/95 backdrop-blur-sm border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-gamepad text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                            ألعاب خفيفة
+                        </h1>
+                        <p class="text-sm text-gray-400">للأجهزة الضعيفة</p>
+                    </div>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="w-full md:w-96">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder="ابحث عن لعبة..." 
+                            class="w-full bg-gray-900 border border-gray-700 rounded-full py-3 pr-12 pl-4 text-gray-200 placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
+                        >
+                        <button class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="flex items-center space-x-6 space-x-reverse">
+                    <a href="#" class="text-gray-300 hover:text-primary transition-colors">
+                        <i class="fas fa-home ml-2"></i>
+                        الرئيسية
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-primary transition-colors">
+                        <i class="fas fa-star ml-2"></i>
+                        الأفضل
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-primary transition-colors">
+                        <i class="fas fa-download ml-2"></i>
+                        التحميلات
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="mb-12">
+            <div class="bg-gradient-to-r from-dark-light to-gray-900 rounded-2xl p-8 border border-gray-800">
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                    <div class="lg:w-1/2">
+                        <h2 class="text-4xl font-bold mb-4">
+                            اكتشف أفضل الألعاب
+                            <span class="text-primary">للأجهزة الضعيفة</span>
+                        </h2>
+                        <p class="text-gray-400 text-lg mb-6">
+                            موقع متخصص في ألعاب الكمبيوتر الخفيفة التي تعمل على أجهزة RAM منخفض ومعالجات ضعيفة. 
+                            كل لعبة مصنفة حسب متطلبات التشغيل مع روتحميل مباشرة.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium">
+                                <i class="fas fa-memory ml-2"></i>
+                                ألعاب RAM 2GB
+                            </span>
+                            <span class="px-4 py-2 bg-secondary/20 text-secondary rounded-full text-sm font-medium">
+                                <i class="fas fa-microchip ml-2"></i>
+                                معالجات ضعيفة
+                            </span>
+                            <span class="px-4 py-2 bg-accent/20 text-accent rounded-full text-sm font-medium">
+                                <i class="fas fa-bolt ml-2"></i>
+                                تشغيل سلس
+                            </span>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <img 
+                            src="https://picsum.photos/600/400?random=100" 
+                            alt="ألعاب خفيفة للكمبيوتر الضعيف" 
+                            class="w-full rounded-xl shadow-2xl"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Filter -->
+        <section class="mb-10">
+            <h3 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-filter ml-3 text-primary"></i>
+                تصفية حسب المواصفات
+            </h3>
+            <div class="flex flex-wrap gap-3 mb-8">
+                <button class="category-chip px-5 py-2.5 bg-dark-light border border-gray-700 rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all">
+                    جميع الألعاب
+                </button>
+                <button class="category-chip px-5 py-2.5 bg-dark-light border border-gray-700 rounded-full hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all">
+                    <i class="fas fa-memory ml-2"></i>
+                    RAM 2GB أو أقل
+                </button>
+                <button class="category-chip px-5 py-2.5 bg-dark-light border border-gray-700 rounded-full hover:bg-purple-500 hover:border-purple-500 hover:text-white transition-all">
+                    <i class="fas fa-microchip ml-2"></i>
+                    معالج ثنائي النواة
+                </button>
+                <button class="category-chip px-5 py-2.5 bg-dark-light border border-gray-700 rounded-full hover:bg-green-500 hover:border-green-500 hover:text-white transition-all">
+                    <i class="fas fa-hdd ml-2"></i>
+                    مساحة تخزين قليلة
+                </button>
+                <button class="category-chip px-5 py-2.5 bg-dark-light border border-gray-700 rounded-full hover:bg-yellow-500 hover:border-yellow-500 hover:text-white transition-all">
+                    <i class="fas fa-gamepad ml-2"></i>
+                    ألعاب قديمة
+                </button>
+            </div>
+        </section>
+
+        <!-- Top Games Sidebar & Main Content -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Main Games Grid -->
+            <div class="lg:w-3/4">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">
+                        <i class="fas fa-th-large ml-3 text-primary"></i>
+                        الألعاب المتاحة
+                    </h3>
+                    <div class="text-gray-400">
+                        <span id="gameCount">12</span> لعبة متاحة
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="gamesGrid">
+                    <!-- Games will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Top Games Sidebar -->
+            <div class="lg:w-1/4">
+                <div class="bg-dark-light rounded-xl border border-gray-800 p-6 sticky top-24">
+                    <h4 class="text-xl font-bold mb-6 pb-4 border-b border-gray-800 flex items-center">
+                        <i class="fas fa-crown ml-3 text-accent"></i>
+                        أفضل الألعاب
+                    </h4>
+                    
+                    <div class="space-y-5" id="topGamesList">
+                        <!-- Top games will be populated by JavaScript -->
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="mt-8 pt-6 border-t border-gray-800">
+                        <h5 class="font-bold mb-4 text-gray-300">
+                            <i class="fas fa-chart-bar ml-3"></i>
+                            إحصائيات سريعة
+                        </h5>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-400">أقل لعبة حجماً</span>
+                                <span class="text-primary font-medium">150MB</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-400">متوسط حجم الألعاب</span>
+                                <span class="text-primary font-medium">850MB</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-400">أكثر لعبة تحميلاً</span>
+                                <span class="text-primary font-medium">Stardew Valley</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-light border-t border-gray-800 mt-12">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 space-x-reverse mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-gamepad text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">ألعاب خفيفة</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        موقع متخصص في تقديم أفضل الألعاب الخفيفة التي تعمل على الأجهزة الضعيفة 
+                        مع ضمان تجربة لعب سلسة وممتعة.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4">التصنيفات</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">ألعاب RAM 2GB</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">ألعاب معالج ضعيف</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">ألعاب قديمة</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">ألعاب إندي</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">الألعاب الأكثر تحميلاً</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">ألعاب مجانية</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">دليل التثبيت</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">الدعم الفني</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4">النشرة البريدية</h4>
+                    <p class="text-gray-400 text-sm mb-3">
+                        اشترك ليصلك جديد الألعاب الخفيفة
+                    </p>
+                    <div class="flex">
+                        <input 
+                            type="email" 
+                            placeholder="بريدك الإلكتروني" 
+                            class="flex-grow bg-gray-900 border border-gray-700 rounded-r-lg rounded-l-none py-2 px-3 text-gray-200 focus:outline-none focus:border-primary"
+                        >
+                        <button class="bg-primary hover:bg-primary/90 text-white px-4 rounded-l-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>© 2024 ألعاب خفيفة للكمبيوتر الضعيف. جميع الحقوق محفوظة.</p>
+                <p class="mt-2">تم تصميم الموقع خصيصاً لمستخدمي الأجهزة الضعيفة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Define games data
+        const gamesData = [
+            {
+                "id": 1,
+                "name": "Stardew Valley",
+                "description": "لعبة محاكاة مزرعة رائعة مع عناصر RPG، خفيفة جداً وتعمل على معظم الأجهزة.",
+                "image": "https://picsum.photos/400/250?random=1",
+                "ram": "2GB",
+                "cpu": "Intel Core 2 Duo",
+                "storage": "500MB",
+                "size": "500MB",
+                "rating": 4.8,
+                "downloads": "2.5M",
+                "category": ["زراعة", "RPG", "خفيف"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 2,
+                "name": "Terraria",
+                "description": "لعبة مغامرات وساند بوكس مع عالم مفتوح، خفيفة وتعمل على أجهزة قديمة.",
+                "image": "https://picsum.photos/400/250?random=2",
+                "ram": "2.5GB",
+                "cpu": "Dual Core 2.0 GHz",
+                "storage": "200MB",
+                "size": "200MB",
+                "rating": 4.7,
+                "downloads": "1.8M",
+                "category": ["مغامرات", "ساند بوكس", "خفيف"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 3,
+                "name": "Undertale",
+                "description": "لعبة RPG فريدة مع قصة رائعة، خفيفة جداً وتعمل على أي جهاز.",
+                "image": "https://picsum.photos/400/250?random=3",
+                "ram": "2GB",
+                "cpu": "Intel Pentium 4",
+                "storage": "200MB",
+                "size": "200MB",
+                "rating": 4.9,
+                "downloads": "1.2M",
+                "category": ["RPG", "قصة", "خفيف جداً"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 4,
+                "name": "Half-Life 2",
+                "description": "لعبة إطلاق نار كلاسيكية تعمل على أجهزة ضعيفة مع جرافيك ممتاز.",
+                "image": "https://picsum.photos/400/250?random=4",
+                "ram": "1GB",
+                "cpu": "Pentium 4 1.7GHz",
+                "storage": "4.5GB",
+                "size": "4.5GB",
+                "rating": 4.6,
+                "downloads": "3.1M",
+                "category": ["إطلاق نار", "كلاسيكية", "قصة"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 5,
+                "name": "Portal",
+                "description": "لعبة ألغاز فريدة من نوعها، خفيفة وتعمل على معظم الأجهزة.",
+                "image": "https://picsum.photos/400/250?random=5",
+                "ram": "1GB",
+                "cpu": "Pentium 4 3.0GHz",
+                "storage": "4GB",
+                "size": "4GB",
+                "rating": 4.8,
+                "downloads": "1.5M",
+                "category": ["ألغاز", "خفيف", "فريد"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 6,
+                "name": "Counter-Strike 1.6",
+                "description": "لعبة إطلاق نار كلاسيكية تعمل على أي جهاز تقريباً.",
+                "image": "https://picsum.photos/400/250?random=6",
+                "ram": "512MB",
+                "cpu": "Pentium 3 800MHz",
+                "storage": "500MB",
+                "size": "500MB",
+                "rating": 4.5,
+                "downloads": "5.2M",
+                "category": ["إطلاق نار", "متعددة", "خفيف جداً"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 7,
+                "name": "Minecraft (Legacy)",
+                "description": "نسخة قديمة من ماينكرافت تعمل على أجهزة ضعيفة.",
+                "image": "https://picsum.photos/400/250?random=7",
+                "ram": "1GB",
+                "cpu": "Intel Core Duo",
+                "storage": "200MB",
+                "size": "200MB",
+                "rating": 4.4,
+                "downloads": "4.3M",
+                "category": ["ساند بوكس", "بناء", "خفيف"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 8,
+                "name": "Age of Empires II",
+                "description": "لعبة استراتيجية كلاسيكية تعمل على أجهزة ضعيفة.",
+                "image": "https://picsum.photos/400/250?random=8",
+                "ram": "256MB",
+                "cpu": "Pentium 3 450MHz",
+                "storage": "300MB",
+                "size": "300MB",
+                "rating": 4.7,
+                "downloads": "2.1M",
+                "category": ["استراتيجية", "تاريخية", "خفيف جداً"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 9,
+                "name": "Limbo",
+                "description": "لعبة ألغاز ومنصات مع جرافيك بسيط، خفيفة جداً.",
+                "image": "https://picsum.photos/400/250?random=9",
+                "ram": "512MB",
+                "cpu": "Intel Pentium 4",
+                "storage": "150MB",
+                "size": "150MB",
+                "rating": 4.6,
+                "downloads": "1.7M",
+                "category": ["ألغاز", "منصات", "خفيف جداً"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 10,
+                "name": "Papers, Please",
+                "description": "لعبة محاكاة فريدة مع جرافيك بسيط، خفيفة جداً.",
+                "image": "https://picsum.photos/400/250?random=10",
+                "ram": "1GB",
+                "cpu": "Intel Core 2 Duo",
+                "storage": "100MB",
+                "size": "100MB",
+                "rating": 4.8,
+                "downloads": "900K",
+                "category": ["محاكاة", "قصة", "خفيف جداً"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 11,
+                "name": "FTL: Faster Than Light",
+                "description": "لعبة استراتيجية فضائية خفيفة مع جرافيك بسيط.",
+                "image": "https://picsum.photos/400/250?random=11",
+                "ram": "1GB",
+                "cpu": "Intel Core 2 Duo",
+                "storage": "200MB",
+                "size": "200MB",
+                "rating": 4.7,
+                "downloads": "1.3M",
+                "category": ["استراتيجية", "فضاء", "خفيف"],
+                "downloadLink": "#"
+            },
+            {
+                "id": 12,
+                "name": "Hotline Miami",
+                "description": "لعبة أكشن سريعة مع جرافيك بسيط، خفيفة وتعمل على أجهزة ضعيفة.",
+                "image": "https://picsum.photos/400/250?random=12",
+                "ram": "1GB",
+                "cpu": "Intel Core 2 Duo",
+                "storage": "500MB",
+                "size": "500MB",
+                "rating": 4.6,
+                "downloads": "1.1M",
+                "category": ["أكشن", "سريع", "خفيف"],
+                "downloadLink": "#"
+            }
+        ];
+
+        // Top games (sorted by rating)
+        const topGames = [...gamesData]
+            .sort((a, b) => b.rating - a.rating)
+            .slice(0, 5);
+
+        // DOM Elements
+        const gamesGrid = document.getElementById("gamesGrid");
+        const topGamesList = document.getElementById("topGamesList");
+        const gameCount = document.getElementById("gameCount");
+        const searchInput = document.getElementById("searchInput");
+
+        // Function to create game card
+        function createGameCard(game) {
+            return `
+                <div class="game-card bg-dark-light rounded-xl border border-gray-800 overflow-hidden hover:border-primary/50 transition-all">
+                    <div class="relative">
+                        <img 
+                            src="${game.image}" 
+                            alt="${game.name}" 
+                            class="w-full h-48 object-cover"
+                            loading="lazy"
+                        >
+                        <div class="absolute top-3 left-3 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-memory ml-1"></i>
+                            ${game.ram} RAM
+                        </div>
+                        <div class="absolute top-3 right-3 bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-star ml-1"></i>
+                            ${game.rating}
+                        </div>
+                    </div>
+                    
+                    <div class="p-5">
+                        <h4 class="text-xl font-bold mb-2 text-white">${game.name}</h4>
+                        <p class="text-gray-400 text-sm mb-4">${game.description}</p>
+                        
+                        <div class="mb-4">
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                ${game.category.map(cat => 
+                                    `<span class="px-3 py-1 bg-gray-900 text-gray-300 rounded-full text-xs">${cat}</span>`
+                                ).join("")}
+                            </div>
+                            
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">
+                                        <i class="fas fa-microchip ml-2"></i>
+                                        المعالج:
+                                    </span>
+                                    <span class="text-gray-300">${game.cpu}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">
+                                        <i class="fas fa-hdd ml-2"></i>
+                                        التخزين:
+                                    </span>
+                                    <span class="text-gray-300">${game.storage}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">
+                                        <i class="fas fa-weight-hanging ml-2"></i>
+                                        الحجم:
+                                    </span>
+                                    <span class="text-primary font-medium">${game.size}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+                            <div class="text-gray-400 text-sm">
+                                <i class="fas fa-download ml-1"></i>
+                                ${game.downloads} تحميل
+                            </div>
+                            <button onclick="downloadGame(${game.id})" 
+                                    class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-medium transition-colors flex items-center">
+                                <i class="fas fa-download ml-2"></i>
+                                تحميل
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to create top game item
+        function createTopGameItem(game, index) {
+            return `
+                <div class="flex items-center space-x-4 space-x-reverse p-3 bg-gray-900/50 rounded-lg hover:bg-gray-900 transition-colors">
+                    <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold">
+                        ${index + 1}
+                    </div>
+                    <div class="flex-grow">
+                        <h5 class="font-bold text-white">${game.name}</h5>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-star text-yellow-500 ml-1"></i>
+                            <span>${game.rating}</span>
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-memory ml-1"></i>
+                            <span>${game.ram}</span>
+                        </div>
+                    </div>
+                    <button onclick="downloadGame(${game.id})" 
+                            class="text-primary hover:text-primary/80">
+                        <i class="fas fa-download text-lg"></i>
+                    </button>
+                </div>
+            `;
+        }
+
+        // Function to render games
+        function renderGames(games) {
+            gamesGrid.innerHTML = games.map(createGameCard).join("");
+            gameCount.textContent = games.length;
+        }
+
+        // Function to render top games
+        function renderTopGames() {
+            topGamesList.innerHTML = topGames.map(createTopGameItem).join("");
+        }
+
+        // Function to filter games
+        function filterGames(searchTerm = "") {
+            const filtered = gamesData.filter(game => 
+                game.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                game.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                game.category.some(cat => cat.toLowerCase().includes(searchTerm.toLowerCase()))
+            );
+            renderGames(filtered);
+        }
+
+        // Function to handle game download
+        function downloadGame(gameId) {
+            const game = gamesData.find(g => g.id === gameId);
+            if (game) {
+                alert(`جاري تحميل ${game.name}...\nالحجم: ${game.size}\nسيبدأ التحميل تلقائياً.`);
+                // In a real application, this would redirect to the download link
+                // window.location.href = game.downloadLink;
+            }
+        }
+
+        // Function to filter by category
+        function filterByCategory(category) {
+            const buttons = document.querySelectorAll(".category-chip");
+            buttons.forEach(btn => {
+                btn.classList.remove("bg-primary", "border-primary", "text-white");
+                btn.classList.add("bg-dark-light", "border-gray-700");
+            });
+            
+            event.target.classList.remove("bg-dark-light", "border-gray-700");
+            event.target.classList.add("bg-primary", "border-primary", "text-white");
+            
+            if (category === "all") {
+                renderGames(gamesData);
+            } else {
+                // Filter logic based on category
+                let filtered = [];
+                switch(category) {
+                    case "ram":
+                        filtered = gamesData.filter(g => g.ram.includes("2GB"));
+                        break;
+                    case "cpu":
+                        filtered = gamesData.filter(g => g.cpu.includes("Dual") || g.cpu.includes("Core 2"));
+                        break;
+                    case "storage":
+                        filtered = gamesData.filter(g => parseFloat(g.size) < 1); // Less than 1GB
+                        break;
+                    case "old":
+                        filtered = gamesData.filter(g => 
+                            g.name.includes("Counter-Strike") || 
+                            g.name.includes("Age of Empires") ||
+                            g.name.includes("Half-Life")
+                        );
+                        break;
+                }
+                renderGames(filtered);
+            }
+        }
+
+        // Initialize event listeners
+        function initEventListeners() {
+            // Search functionality
+            searchInput.addEventListener("input", (e) => {
+                filterGames(e.target.value);
+            });
+
+            // Category filter buttons
+            document.querySelectorAll(".category-chip").forEach((button, index) => {
+                button.addEventListener("click", () => {
+                    const categories = ["all", "ram", "cpu", "storage", "old"];
+                    filterByCategory(categories[index]);
+                });
+            });
+
+            // Prevent default behavior for all anchor tags
+            document.querySelectorAll("a").forEach(anchor => {
+                anchor.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const href = anchor.getAttribute("href");
+                    if (href === "#") {
+                        // For demo purposes, just show a message
+                        alert("هذا الرابط للعرض فقط. في التطبيق الحقيقي، سينقلك إلى الصفحة المطلوبة.");
+                    }
+                });
+            });
+        }
+
+        // Initialize the page
+        function init() {
+            renderGames(gamesData);
+            renderTopGames();
+            initEventListeners();
+        }
+
+        // Start the application
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
+</body>
+</html>
